@@ -1,6 +1,5 @@
 package supercoder79.databreaker.mixin;
 
-import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.DataFixerUpper;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;

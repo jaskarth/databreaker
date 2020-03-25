@@ -16,7 +16,7 @@ repositories {
 2. add this to your build script in `dependencies`:
 ```
 modRuntime ("com.github.SuperCoder7979:databreaker:master") {
-		exclude module : "fabric-loader"
-	}
+	exclude module : "fabric-loader"
+}
 ```
 3. cry

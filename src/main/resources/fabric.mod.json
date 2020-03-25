@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "databreaker",
+  "version": "${version}",
+  "name": "Databreaker",
+  "description": "Removes DataFixers from executing.",
+  "authors": [
+    "SuperCoder79"
+  ],
+  "license": "CC0-1.0",
+  "icon": "assets/databreaker/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "supercoder79.databreaker.Databreaker"
+    ]
+  },
+  "mixins": [
+    "databreaker.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.8+build.189",
+    "minecraft": ">=1.16-"
+  }
+}

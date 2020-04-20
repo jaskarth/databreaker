@@ -3,12 +3,15 @@
   "package": "supercoder79.databreaker.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinSchemas",
     "MixinBlockEntityType",
     "MixinDFU",
+    "MixinLevelProperties",
+    "MixinMinecraftServer",
     "MixinNbtHelper",
-    "MixinLevelStorage",
-    "MixinLevelProperties"
+    "MixinSchemas",
+    "nospam.MixinEntityType",
+    "nospam.MixinGameOptions",
+    "nospam.MixinLevelStorage"
   ],
   "client": [
     "MixinBackupPromptScreen"

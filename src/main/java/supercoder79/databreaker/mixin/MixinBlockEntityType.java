@@ -1,6 +1,5 @@
 package supercoder79.databreaker.mixin;
 
-import com.mojang.datafixers.DataFixerUpper;
 import net.minecraft.block.entity.BlockEntityType;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;

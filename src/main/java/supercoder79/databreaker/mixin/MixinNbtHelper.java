@@ -1,17 +1,13 @@
 package supercoder79.databreaker.mixin;
 
 import com.mojang.datafixers.DataFixer;
-import com.mojang.datafixers.DataFixerUpper;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.datafixer.NbtOps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
-import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(NbtHelper.class)
 public class MixinNbtHelper {

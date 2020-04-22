@@ -12,7 +12,7 @@ import java.util.function.BooleanSupplier;
 @Mixin(MinecraftServer.class)
 public abstract class MixinMinecraftServer {
     @Redirect(method = "method_27725", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/LevelStorage$Session;needsConversion()Z"))
-    private static boolean concern(LevelStorage.Session session, DataFixer dataFixer, boolean bl, boolean bl2, BooleanSupplier booleanSupplier) {
+    private static boolean concern(LevelStorage.Session session) {
         boolean shouldExplode = session.needsConversion();
         if (shouldExplode) {
             throw new RuntimeException("You cannot upgrade worlds with DataBreaker! Please remove DataBreaker and then upgrade your world.");

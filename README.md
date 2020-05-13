@@ -15,7 +15,7 @@ repositories {
 ```
 2. add this to your build script in `dependencies`:
 ```
-modRuntime ("com.github.SuperCoder7979:databreaker:master") {
+modRuntime ("com.github.SuperCoder7979:databreaker:<whatever the latest commit hash is>") {
 	exclude module : "fabric-loader"
 }
 ```

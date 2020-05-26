@@ -1,7 +1,7 @@
 package supercoder79.databreaker.mixin;
 
 import com.mojang.datafixers.DataFixer;
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.datafixer.NbtOps;
 import net.minecraft.nbt.CompoundTag;

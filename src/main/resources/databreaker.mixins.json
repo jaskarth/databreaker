@@ -5,16 +5,16 @@
   "mixins": [
     "MixinBlockEntityType",
     "MixinDFU",
-    "MixinLevelProperties",
     "MixinMinecraftServer",
     "MixinNbtHelper",
     "MixinSchemas",
-    "nospam.MixinEntityType",
+    "nospam.MixinUtil",
     "nospam.MixinGameOptions",
     "nospam.MixinLevelStorage"
   ],
   "client": [
-    "MixinBackupPromptScreen"
+    "MixinBackupPromptScreen",
+    "nospam.MixinLevelStorageClient"
   ],
   "injectors": {
     "defaultRequire": 1

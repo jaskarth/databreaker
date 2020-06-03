@@ -11,7 +11,7 @@ import java.util.function.BooleanSupplier;
 
 @Mixin(MinecraftServer.class)
 public abstract class MixinMinecraftServer {
-    @Redirect(method = "method_27725", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/LevelStorage$Session;needsConversion()Z"))
+    @Redirect(method = "convertLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/LevelStorage$Session;needsConversion()Z"))
     private static boolean concern(LevelStorage.Session session) {
         boolean shouldExplode = session.needsConversion();
         if (shouldExplode) {

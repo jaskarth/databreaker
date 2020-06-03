@@ -1,5 +1,6 @@
 package supercoder79.databreaker.mixin;
 
+import net.minecraft.class_5348;
 import net.minecraft.client.gui.screen.BackupPromptScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
@@ -18,7 +19,7 @@ import java.util.List;
 @Mixin(BackupPromptScreen.class)
 public class MixinBackupPromptScreen extends Screen {
 
-    @Shadow @Final private List<Text> wrappedText;
+    @Shadow @Final private List<class_5348> wrappedText;
 
     @Mutable
     @Shadow @Final private Text subtitle;

@@ -17,7 +17,5 @@ public class MixinSchemas {
      */
     @Overwrite
     private static void build(DataFixerBuilder builder) {
-        Schema schema = builder.addSchema(99, Schema99::new);
-        Schema schema2 = builder.addSchema(100, Schema100::new);
     }
 }

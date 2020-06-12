@@ -11,18 +11,19 @@ import com.mojang.serialization.Lifecycle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
-import net.minecraft.class_5315;
 import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.datafixer.NbtOps;
 import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resource.DataPackSettings;
 import net.minecraft.util.Util;
 import net.minecraft.world.gen.GeneratorOptions;
 import net.minecraft.world.level.LevelInfo;
 import net.minecraft.world.level.storage.LevelStorage;
 import net.minecraft.world.level.storage.LevelSummary;
+import net.minecraft.world.level.storage.SaveVersionInfo;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -57,16 +58,16 @@ public abstract class MixinLevelStorageClient {
                 compoundTag2.remove("Player");
                 int i = compoundTag2.contains("DataVersion", 99) ? compoundTag2.getInt("DataVersion") : -1;
                 Dynamic<Tag> dynamic = new Dynamic<>(NbtOps.INSTANCE, compoundTag2);
-                class_5315 lv = class_5315.method_29023(dynamic);
-                int j = lv.method_29022();
+                SaveVersionInfo saveVersionInfo = SaveVersionInfo.fromDynamic(dynamic);
+                int j = saveVersionInfo.getLevelFormatVersion();
                 if (j != 19132 && j != 19133) {
                     return null;
                 } else {
                     boolean bl2 = j != this.getCurrentVersion();
                     File file3 = new File(file, "icon.png");
-                    Pair<GeneratorOptions, Lifecycle> pair = method_29010(dynamic, dataFixer, i);
-                    LevelInfo levelInfo = LevelInfo.method_28383(dynamic, pair.getFirst());
-                    return new LevelSummary(levelInfo, lv, file.getName(), bl2, bl, file3, pair.getSecond());
+                    DataPackSettings dataPackSettings = (DataPackSettings)dynamic.get("DataPacks").result().map(d -> method_29580(d)).orElse(DataPackSettings.SAFE_MODE);
+                    LevelInfo levelInfo = LevelInfo.method_28383(dynamic, dataPackSettings);
+                    return new LevelSummary(levelInfo, saveVersionInfo, file.getName(), bl2, bl, file3);
                 }
             } catch (Exception var15) {
                 return null;
@@ -95,5 +96,12 @@ public abstract class MixinLevelStorageClient {
         Logger var10002 = LOGGER;
         var10002.getClass();
         return Pair.of(dataResult.resultOrPartial(Util.method_29188("WorldGenSettings: ", var10002::error)).orElseGet(GeneratorOptions::getDefaultOptions), dataResult.lifecycle());
+    }
+
+    private static DataPackSettings method_29580(Dynamic<?> dynamic) {
+        DataResult var10000 = DataPackSettings.CODEC.parse(dynamic);
+        Logger var10001 = LOGGER;
+        var10001.getClass();
+        return (DataPackSettings)var10000.resultOrPartial(var10001::error).orElse(DataPackSettings.SAFE_MODE);
     }
 }

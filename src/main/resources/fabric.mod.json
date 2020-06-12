@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "id": "databreaker",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "name": "Databreaker",
   "description": "Removes DataFixers from executing.",
   "authors": [
     "SuperCoder79"
   ],
-  "license": "CC0-1.0",
+  "license": "LGPLv3",
   "icon": "assets/databreaker/icon.png",
   "environment": "*",
   "entrypoints": {

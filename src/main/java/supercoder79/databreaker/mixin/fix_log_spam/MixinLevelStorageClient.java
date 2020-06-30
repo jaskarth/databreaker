@@ -1,8 +1,7 @@
-package supercoder79.databreaker.mixin.nospam;
+package supercoder79.databreaker.mixin.fix_log_spam;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
-import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
@@ -10,10 +9,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.Lifecycle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.SharedConstants;
-import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.datafixer.NbtOps;
-import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
@@ -29,8 +25,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,7 +40,8 @@ public abstract class MixinLevelStorageClient {
     @Shadow @Final private static ImmutableList<String> field_25020;
 
     /**
-     * @author
+     * @reason Avoid datafixing and return the provided dynamic
+     * @author SuperCoder79
      */
     @Environment(EnvType.CLIENT)
     @Overwrite
@@ -76,7 +71,8 @@ public abstract class MixinLevelStorageClient {
     }
 
     /**
-     * @author
+     * @reason Avoid datafixing and return the provided dynamic
+     * @author SuperCoder79
      */
     @Overwrite
     private static Pair<GeneratorOptions, Lifecycle> method_29010(Dynamic<?> dynamic, DataFixer dataFixer, int i) {

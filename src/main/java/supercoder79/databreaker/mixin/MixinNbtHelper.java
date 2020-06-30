@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(NbtHelper.class)
 public class MixinNbtHelper {
     /**
-     * @author
+     * @reason Avoid using the fixer
+     * @author SuperCoder79
      */
     @Overwrite
     public static CompoundTag update(DataFixer fixer, DataFixTypes fixTypes, CompoundTag tag, int oldVersion, int currentVersion) {

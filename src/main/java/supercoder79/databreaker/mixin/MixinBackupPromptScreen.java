@@ -48,7 +48,8 @@ public class MixinBackupPromptScreen extends Screen {
     }
 
     /**
-     * @author
+     * @reason Stop users from loading old worlds. They're better off this way.
+     * @author SuperCoder79
      */
     @Overwrite
     public void init() {

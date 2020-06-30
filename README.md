@@ -1,12 +1,11 @@
 # DataBreaker
 
-this is a very cused mod  
-it makes mc load way faster (on server and client) by removing DataFixerUpper  
-i'm not responsible if you completely screw up your world  
-thanks, have a great day  
+DataBreaker speeds up your minecraft loading time by stopping the execution of DataFixerUpper.
+As you can imagine this is very hacky and stops world backwards compatibility. This tool is intended for MOD DEVS ONLY.
+Do not use it in a normal Minecraft environment. Even if you try it will just crash you anyway.
 
 ## how to add this mod to your dev env
-if you have the inclination to add databreaker to your dev env, follow these 3 easy steps:  
+If you have the inclination to add databreaker to your dev env, follow these 3 easy steps:  
 1. add this to your build script before `dependencies`
 ```
 repositories {
@@ -19,4 +18,4 @@ modRuntime ("com.github.SuperCoder7979:databreaker:<whatever the latest commit h
 	exclude module : "fabric-loader"
 }
 ```
-3. cry
+You can also use the latest git tagged version.

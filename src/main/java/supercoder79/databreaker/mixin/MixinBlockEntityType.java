@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(BlockEntityType.class)
 public class MixinBlockEntityType {
 //    @Redirect(method = "create", at = @At(target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V", value = "INVOKE"))
-//    private static void no(Logger logger, String message, Object o){
+//    private static void stopLogSpam_create(Logger logger, String message, Object o){
 //    }
 
 }

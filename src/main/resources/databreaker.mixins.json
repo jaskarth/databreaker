@@ -8,13 +8,13 @@
     "MixinMinecraftServer",
     "MixinNbtHelper",
     "MixinSchemas",
-    "nospam.MixinUtil",
-    "nospam.MixinGameOptions",
-    "nospam.MixinLevelStorage"
+    "fix_log_spam.MixinUtil",
+    "fix_log_spam.MixinGameOptions",
+    "fix_log_spam.MixinLevelStorage"
   ],
   "client": [
     "MixinBackupPromptScreen",
-    "nospam.MixinLevelStorageClient"
+    "fix_log_spam.MixinLevelStorageClient"
   ],
   "injectors": {
     "defaultRequire": 1

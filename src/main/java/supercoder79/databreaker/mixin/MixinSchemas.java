@@ -11,9 +11,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(Schemas.class)
 public class MixinSchemas {
     /**
+     * @reason The core of DataBreaker. Stops the game from loading schemas.
      * @author SuperCoder79
-     *
-     * @reason yes
      */
     @Overwrite
     private static void build(DataFixerBuilder builder) {

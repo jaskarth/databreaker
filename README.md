@@ -1,4 +1,3 @@
-
 # DataBreaker
 [![JitPack](https://jitpack.io/v/SuperCoder7979/databreaker.svg)](https://jitpack.io/#SuperCoder7979/databreaker "SuperCoder7979/databreaker on JitPack")
 
@@ -8,10 +7,11 @@ Do not use it in a normal Minecraft environment. Even if you try it will just cr
 
 ---
 
-## How to add this mod to your development environment:
-If you have the inclination to add databreaker to your dev env, follow these 3 easy steps:  
+## How to add this mod to your development environment
+If you have the inclination to add databreaker to your dev env, follow these 2 easy steps:  
 
-### 1. add this to your build script before `dependencies`
+### 1. add this to your build script before `dependencies`:  
+:exclamation:Note: do ***NOT*** put it in the `publishing` section
 ```gradle
 repositories {
 	maven {
@@ -21,10 +21,11 @@ repositories {
 }
 ```
 
-### 2. add this to your build script in `dependencies`:
-**If you don't want the latest build, you can find a list of builds on [JitPack](https://jitpack.io/#SuperCoder7979/databreaker "SuperCoder7979/databreaker on JitPack"). You can also use any git tagged version, or the (short or long) hash of any specific commit.**
+### 2. add this to your build script in `dependencies`:  
+**for `databreaker_version` use the latest commit hash.
+If you don't want the latest build, you can find a list of builds on [JitPack](https://jitpack.io/#SuperCoder7979/databreaker "SuperCoder7979/databreaker on JitPack"). You can also use any git tagged version, or the (short or long) hash of any specific commit.**
 ```gradle
-modRuntime ("com.github.SuperCoder7979:databreaker:-SNAPSHOT") {
+modRuntime ("com.github.SuperCoder7979:databreaker:${databreaker_version}") {
 	exclude module: "fabric-loader"
 }
 ```

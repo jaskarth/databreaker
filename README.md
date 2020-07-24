@@ -4,9 +4,8 @@
 DataBreaker speeds up your minecraft loading time by stopping the execution of DataFixerUpper.
 As you can imagine this is very hacky and stops world backwards compatibility. This tool is intended for MOD DEVS ONLY.
 Do not use it in a normal Minecraft environment. Even if you try it will just crash you anyway.
-
----
-
+<br/>
+<br/>
 ## How to add this mod to your development environment
 If you have the inclination to add databreaker to your dev env, follow these 2 easy steps:  
 

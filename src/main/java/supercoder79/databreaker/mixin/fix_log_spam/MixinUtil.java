@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Util.class)
 public class MixinUtil {
 
-    @Redirect(method = "method_29191", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"))
-    private static void stopLogSpam_method_29191(Logger logger, String message, Object p0) {
+    @Redirect(method = "getChoiceTypeInternal", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"))
+    private static void stopLogSpam_getChoiceTypeInternal(Logger logger, String message, Object p0) {
 
     }
 
     //Setting this to null avoids a crash, allowing us to bypass the first 2 schemas
-    @Inject(method = "method_29187", at = @At("HEAD"), cancellable = true)
-    private static void avoidCrash_method_29187(DSL.TypeReference typeReference, String string, CallbackInfoReturnable<Type<?>> cir) {
+    @Inject(method = "getChoiceType", at = @At("HEAD"), cancellable = true)
+    private static void avoidCrash_getChoiceType(DSL.TypeReference typeReference, String string, CallbackInfoReturnable<Type<?>> cir) {
         cir.setReturnValue(null);
     }
 }

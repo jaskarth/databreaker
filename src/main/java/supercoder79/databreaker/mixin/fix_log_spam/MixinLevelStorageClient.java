@@ -42,7 +42,7 @@ public abstract class MixinLevelStorageClient {
 
     @Shadow @Final private static Logger LOGGER;
 
-    @Shadow @Final private static ImmutableList<String> field_25020;
+    @Shadow @Final private static ImmutableList<String> GENERATOR_OPTION_KEYS;
 
     /**
      * @reason Avoid datafixing and return the provided dynamic
@@ -50,7 +50,7 @@ public abstract class MixinLevelStorageClient {
      */
     @Environment(EnvType.CLIENT)
     @Overwrite
-    private BiFunction<File, DataFixer, LevelSummary> method_29014(File file, boolean bl) {
+    private BiFunction<File, DataFixer, LevelSummary> createLevelDataParser(File file, boolean bl) {
         return (file2, dataFixer) -> {
             try {
                 CompoundTag compoundTag = NbtIo.readCompressed(new FileInputStream(file2));
@@ -80,9 +80,9 @@ public abstract class MixinLevelStorageClient {
      * @author SuperCoder79
      */
     @Overwrite
-    private static Pair<GeneratorOptions, Lifecycle> method_29010(Dynamic<?> dynamic, DataFixer dataFixer, int i) {
+    private static Pair<GeneratorOptions, Lifecycle> readGeneratorProperties(Dynamic<?> dynamic, DataFixer dataFixer, int i) {
         Dynamic<?> dynamic2 = dynamic.get("WorldGenSettings").orElseEmptyMap();
-        UnmodifiableIterator var4 = field_25020.iterator();
+        UnmodifiableIterator var4 = GENERATOR_OPTION_KEYS.iterator();
 
         while(var4.hasNext()) {
             String string = (String)var4.next();

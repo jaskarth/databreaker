@@ -9,14 +9,14 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.Lifecycle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resource.DataPackSettings;
 import net.minecraft.util.Util;
+import net.minecraft.util.dynamic.RegistryLookupCodec;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GeneratorOptions;
@@ -50,14 +50,14 @@ public abstract class MixinLevelStorageClient {
      */
     @Environment(EnvType.CLIENT)
     @Overwrite
-    private BiFunction<File, DataFixer, LevelSummary> createLevelDataParser(File file, boolean bl) {
+    public BiFunction<File, DataFixer, LevelSummary> createLevelDataParser(File file, boolean bl) {
         return (file2, dataFixer) -> {
             try {
-                CompoundTag compoundTag = NbtIo.readCompressed(new FileInputStream(file2));
-                CompoundTag compoundTag2 = compoundTag.getCompound("Data");
+                NbtCompound compoundTag = NbtIo.readCompressed(new FileInputStream(file2));
+                NbtCompound compoundTag2 = compoundTag.getCompound("Data");
                 compoundTag2.remove("Player");
                 int i = compoundTag2.contains("DataVersion", 99) ? compoundTag2.getInt("DataVersion") : -1;
-                Dynamic<Tag> dynamic = new Dynamic<>(NbtOps.INSTANCE, compoundTag2);
+                Dynamic<NbtElement> dynamic = new Dynamic<>(NbtOps.INSTANCE, compoundTag2);
                 SaveVersionInfo saveVersionInfo = SaveVersionInfo.fromDynamic(dynamic);
                 int j = saveVersionInfo.getLevelFormatVersion();
                 if (j != 19132 && j != 19133) {
@@ -95,25 +95,25 @@ public abstract class MixinLevelStorageClient {
         Dynamic<?> dynamic3 = dynamic2;
         DataResult<GeneratorOptions> dataResult = GeneratorOptions.CODEC.parse(dynamic3);
         final Logger var10002 = LOGGER;
-        return Pair.of(dataResult.resultOrPartial(Util.method_29188("WorldGenSettings: ", var10002::error)).orElseGet(() -> {
+        return Pair.of(dataResult.resultOrPartial(Util.addPrefix("WorldGenSettings: ", var10002::error)).orElseGet(() -> {
             DataResult var10000 = RegistryLookupCodec.of(Registry.DIMENSION_TYPE_KEY).codec().parse(dynamic3);
             Registry<DimensionType> registry = null;
             try {
-                registry = (Registry)var10000.resultOrPartial(Util.method_29188("Dimension type registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get dimension registry"));
+                registry = (Registry)var10000.resultOrPartial(Util.addPrefix("Dimension type registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get dimension registry"));
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
             var10000 = RegistryLookupCodec.of(Registry.BIOME_KEY).codec().parse(dynamic3);
             Registry<Biome> registry2 = null;
             try {
-                registry2 = (Registry)var10000.resultOrPartial(Util.method_29188("Biome registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get biome registry"));
+                registry2 = (Registry)var10000.resultOrPartial(Util.addPrefix("Biome registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get biome registry"));
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
-            var10000 = RegistryLookupCodec.of(Registry.NOISE_SETTINGS_WORLDGEN).codec().parse(dynamic3);
+            var10000 = RegistryLookupCodec.of(Registry.CHUNK_GENERATOR_SETTINGS_KEY).codec().parse(dynamic3);
             Registry<ChunkGeneratorSettings> registry3 = null;
             try {
-                registry3 = (Registry)var10000.resultOrPartial(Util.method_29188("Noise settings registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get noise settings registry"));
+                registry3 = (Registry)var10000.resultOrPartial(Util.addPrefix("Noise settings registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get noise settings registry"));
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }

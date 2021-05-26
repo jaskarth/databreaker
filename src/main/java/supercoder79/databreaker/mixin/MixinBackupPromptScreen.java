@@ -1,6 +1,6 @@
 package supercoder79.databreaker.mixin;
 
-import net.minecraft.class_5489;
+import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.screen.BackupPromptScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
@@ -30,7 +30,7 @@ public class MixinBackupPromptScreen extends Screen {
 
     @Shadow @Final private boolean showEraseCacheCheckbox;
 
-    @Shadow private class_5489 wrappedText;
+    @Shadow private MultilineText wrappedText;
 
     protected MixinBackupPromptScreen(Text title) {
         super(title);
@@ -55,30 +55,30 @@ public class MixinBackupPromptScreen extends Screen {
     public void init() {
         if (!dontStop) {
             super.init();
-            this.wrappedText = class_5489.method_30890(this.textRenderer, this.subtitle, this.width - 50);
-            int var10000 = this.wrappedText.method_30887() + 1;
+            this.wrappedText = MultilineText.create(this.textRenderer, this.subtitle, this.width - 50);
+            int var10000 = this.wrappedText.count() + 1;
             this.textRenderer.getClass();
             int i = var10000 * 9;
-            this.addButton(new ButtonWidget(this.width / 2 - 155 + 80, 124 + i, 150, 20, ScreenTexts.CANCEL, (buttonWidget) -> {
+            this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 80, 124 + i, 150, 20, ScreenTexts.CANCEL, (buttonWidget) -> {
                 this.client.openScreen(this.parent);
             }));
         } else {
-            this.wrappedText = class_5489.method_30890(this.textRenderer, this.subtitle, this.width - 50);
-            int var10000 = this.wrappedText.method_30887() + 1;
+            this.wrappedText = MultilineText.create(this.textRenderer, this.subtitle, this.width - 50);
+            int var10000 = this.wrappedText.count() + 1;
             this.textRenderer.getClass();
             int i = var10000 * 9;
-            this.addButton(new ButtonWidget(this.width / 2 - 155, 100 + i, 150, 20, new TranslatableText("selectWorld.backupJoinConfirmButton"), (buttonWidget) -> {
+            this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, 100 + i, 150, 20, new TranslatableText("selectWorld.backupJoinConfirmButton"), (buttonWidget) -> {
                 this.callback.proceed(true, this.eraseCacheCheckbox.isChecked());
             }));
-            this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, 100 + i, 150, 20, new TranslatableText("selectWorld.backupJoinSkipButton"), (buttonWidget) -> {
+            this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 160, 100 + i, 150, 20, new TranslatableText("selectWorld.backupJoinSkipButton"), (buttonWidget) -> {
                 this.callback.proceed(false, this.eraseCacheCheckbox.isChecked());
             }));
-            this.addButton(new ButtonWidget(this.width / 2 - 155 + 80, 124 + i, 150, 20, ScreenTexts.CANCEL, (buttonWidget) -> {
+            this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 80, 124 + i, 150, 20, ScreenTexts.CANCEL, (buttonWidget) -> {
                 this.client.openScreen(this.parent);
             }));
             this.eraseCacheCheckbox = new CheckboxWidget(this.width / 2 - 155 + 80, 76 + i, 150, 20, new TranslatableText("selectWorld.backupEraseCache"), false);
             if (this.showEraseCacheCheckbox) {
-                this.addButton(this.eraseCacheCheckbox);
+                this.addDrawableChild(this.eraseCacheCheckbox);
             }
 
         }

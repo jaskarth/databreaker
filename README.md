@@ -21,8 +21,8 @@ repositories {
 ```
 
 ### 2. add this to your build script in `dependencies`:  
-For `databreaker_version` use the latest commit hash.
-If you don't want the latest build, you can find a list of builds on [Maven](https://maven.gegy.dev/supercoder79/databreaker/). You can also use any git tagged version, or the (short or long) hash of any specific commit.
+For `databreaker_version` use the latest release version number.
+If you don't want the latest build, you can find a list of builds on [Maven](https://maven.gegy.dev/supercoder79/databreaker/).
 ```gradle
 modRuntime ("SuperCoder7979:databreaker:${databreaker_version}") {
 	exclude module: "fabric-loader"

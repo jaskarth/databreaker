@@ -24,7 +24,7 @@ repositories {
 For `databreaker_version` use the latest release version number.
 If you don't want the latest build, you can find a list of builds on [Maven](https://maven.gegy.dev/supercoder79/databreaker/).
 ```gradle
-modRuntime ("SuperCoder7979:databreaker:${databreaker_version}") {
+modRuntime ("supercoder79:databreaker:${databreaker_version}") {
 	exclude module: "fabric-loader"
 }
 ```

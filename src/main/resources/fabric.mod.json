@@ -8,6 +8,7 @@
     "SuperCoder79"
   ],
   "license": "LGPLv3",
+  "icon": "assets/databreaker/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

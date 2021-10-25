@@ -19,7 +19,6 @@
     "databreaker.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.7.8+build.189",
-    "minecraft": ">=1.14-"
+    "fabricloader": ">=0.8.9"
   }
 }

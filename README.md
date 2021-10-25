@@ -1,5 +1,5 @@
 # DataBreaker
-[![JitPack](https://jitpack.io/v/SuperCoder7979/databreaker.svg)](https://jitpack.io/#SuperCoder7979/databreaker "SuperCoder7979/databreaker on JitPack")
+![Maven Version](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fmaven.gegy.dev%2Fsupercoder79%2Fdatabreaker%2Fmaven-metadata.xml)
 
 DataBreaker speeds up your minecraft loading time by stopping the execution of DataFixerUpper.
 As you can imagine this is very hacky and stops world backwards compatibility. This tool is intended for MOD DEVS ONLY.
@@ -14,17 +14,17 @@ If you have the inclination to add databreaker to your dev env, follow these 2 e
 ```gradle
 repositories {
 	maven {
-		name = "JitPack"
-		url = "https://jitpack.io"
+		name = "Gegy"
+		url = "https://maven.gegy.dev"
 	}
 }
 ```
 
 ### 2. add this to your build script in `dependencies`:  
-For `databreaker_version` use the latest commit hash.
-If you don't want the latest build, you can find a list of builds on [JitPack](https://jitpack.io/#SuperCoder7979/databreaker "SuperCoder7979/databreaker on JitPack"). You can also use any git tagged version, or the (short or long) hash of any specific commit.
+For `databreaker_version` use the latest release version number.
+If you don't want the latest build, you can find a list of builds on [Maven](https://maven.gegy.dev/supercoder79/databreaker/).
 ```gradle
-modRuntime ("com.github.SuperCoder7979:databreaker:${databreaker_version}") {
+modRuntime ("supercoder79:databreaker:${databreaker_version}") {
 	exclude module: "fabric-loader"
 }
 ```

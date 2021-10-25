@@ -19,8 +19,6 @@
     "databreaker.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.8.9",
-    "fabric": "*",
-    "fabric-key-binding-api-v1": "*"
+    "fabricloader": ">=0.8.9"
   }
 }

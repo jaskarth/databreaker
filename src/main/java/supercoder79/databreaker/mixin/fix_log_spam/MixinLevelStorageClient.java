@@ -16,6 +16,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.resource.DataPackSettings;
 import net.minecraft.util.Util;
 import net.minecraft.util.dynamic.RegistryLookupCodec;
+import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
@@ -95,30 +96,7 @@ public abstract class MixinLevelStorageClient {
         Dynamic<?> dynamic3 = dynamic2;
         DataResult<GeneratorOptions> dataResult = GeneratorOptions.CODEC.parse(dynamic3);
         final Logger var10002 = LOGGER;
-        return Pair.of(dataResult.resultOrPartial(Util.addPrefix("WorldGenSettings: ", var10002::error)).orElseGet(() -> {
-            DataResult var10000 = RegistryLookupCodec.of(Registry.DIMENSION_TYPE_KEY).codec().parse(dynamic3);
-            Registry<DimensionType> registry = null;
-            try {
-                registry = (Registry)var10000.resultOrPartial(Util.addPrefix("Dimension type registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get dimension registry"));
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
-            var10000 = RegistryLookupCodec.of(Registry.BIOME_KEY).codec().parse(dynamic3);
-            Registry<Biome> registry2 = null;
-            try {
-                registry2 = (Registry)var10000.resultOrPartial(Util.addPrefix("Biome registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get biome registry"));
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
-            var10000 = RegistryLookupCodec.of(Registry.CHUNK_GENERATOR_SETTINGS_KEY).codec().parse(dynamic3);
-            Registry<ChunkGeneratorSettings> registry3 = null;
-            try {
-                registry3 = (Registry)var10000.resultOrPartial(Util.addPrefix("Noise settings registry: ", var10002::error)).orElseThrow(() -> new IllegalStateException("Failed to get noise settings registry"));
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
-            return GeneratorOptions.getDefaultOptions(registry, registry2, registry3);
-        }), dataResult.lifecycle());
+        return Pair.of(dataResult.resultOrPartial(Util.addPrefix("WorldGenSettings: ", var10002::error)).orElseGet(() -> GeneratorOptions.getDefaultOptions(DynamicRegistryManager.Impl.method_39199(dynamic3))), dataResult.lifecycle());
     }
 
     private static DataPackSettings method_29580(Dynamic<?> dynamic) {

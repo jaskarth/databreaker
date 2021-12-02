@@ -1,5 +1,6 @@
 plugins {
-    id 'fabric-loom' version '0.8-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'io.github.juuxel.loom-quiltflower-mini' version '1.1.0'
     id 'maven-publish'
 }
 
@@ -50,7 +51,6 @@ jar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
             artifact(remapJar) {
                 builtBy remapJar
             }
@@ -60,9 +60,18 @@ publishing {
         }
     }
 
-    // select the repositories you want to publish to
     repositories {
-        // uncomment to publish to the local maven
-        // mavenLocal()
+        def env = System.getenv()
+        if (env.MAVEN_URL) {
+            maven {
+                credentials {
+                    username env.MAVEN_USERNAME
+                    password env.MAVEN_PASSWORD
+                }
+                url env.MAVEN_URL
+            }
+        } else {
+            mavenLocal()
+        }
     }
 }

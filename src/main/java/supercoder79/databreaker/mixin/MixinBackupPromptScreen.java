@@ -60,7 +60,7 @@ public class MixinBackupPromptScreen extends Screen {
             this.textRenderer.getClass();
             int i = var10000 * 9;
             this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 80, 124 + i, 150, 20, ScreenTexts.CANCEL, (buttonWidget) -> {
-                this.client.openScreen(this.parent);
+                this.client.setScreen(this.parent);
             }));
         } else {
             this.wrappedText = MultilineText.create(this.textRenderer, this.subtitle, this.width - 50);
@@ -74,7 +74,7 @@ public class MixinBackupPromptScreen extends Screen {
                 this.callback.proceed(false, this.eraseCacheCheckbox.isChecked());
             }));
             this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 80, 124 + i, 150, 20, ScreenTexts.CANCEL, (buttonWidget) -> {
-                this.client.openScreen(this.parent);
+                this.client.setScreen(this.parent);
             }));
             this.eraseCacheCheckbox = new CheckboxWidget(this.width / 2 - 155 + 80, 76 + i, 150, 20, new TranslatableText("selectWorld.backupEraseCache"), false);
             if (this.showEraseCacheCheckbox) {

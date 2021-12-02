@@ -11,6 +11,8 @@ If you have the inclination to add databreaker to your dev env, follow these 2 e
 
 ### 1. add this to your build script before `dependencies`:  
 :exclamation:Note: do ***NOT*** put it in the `publishing` section
+
+For 0.2.6 and below:
 ```gradle
 repositories {
 	maven {
@@ -19,8 +21,17 @@ repositories {
 	}
 }
 ```
+For 0.2.7 and higher:
+```gradle
+repositories {
+	maven {
+		name = "Gegy's Maven"
+		url = "https://maven.gegy.dev/"
+	}
+}
+```
 
-### 2. add this to your build script in `dependencies`:  
+### 2. add this to your build script in `dependencies`:
 For `databreaker_version` use the latest release version number.
 If you don't want the latest build, you can find a list of builds on [Maven](https://maven.gegy.dev/supercoder79/databreaker/).
 ```gradle

@@ -17,7 +17,6 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resource.DataPackSettings;
 import net.minecraft.util.Util;
-import net.minecraft.util.dynamic.RegistryLookupCodec;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -28,7 +27,7 @@ import net.minecraft.world.level.LevelInfo;
 import net.minecraft.world.level.storage.LevelStorage;
 import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraft.world.level.storage.SaveVersionInfo;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -36,6 +35,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -85,25 +85,28 @@ public abstract class MixinLevelStorageClient {
     @Overwrite
     private static <T> Pair<GeneratorOptions, Lifecycle> readGeneratorProperties(Dynamic<T> levelData, DataFixer dataFixer, int version) {
         Dynamic<T> dynamic = levelData.get("WorldGenSettings").orElseEmptyMap();
+        UnmodifiableIterator var4 = GENERATOR_OPTION_KEYS.iterator();
 
-        for(String string : GENERATOR_OPTION_KEYS) {
+        while(var4.hasNext()) {
+            String string = (String)var4.next();
             Optional<? extends Dynamic<?>> optional = levelData.get(string).result();
             if (optional.isPresent()) {
                 dynamic = dynamic.set(string, (Dynamic)optional.get());
             }
         }
-        
-        DataResult<GeneratorOptions> string = GeneratorOptions.CODEC.parse(dynamic);
+
+        Dynamic<T> dynamic2 = dynamic; //dataFixer.update(TypeReferences.WORLD_GEN_SETTINGS, dynamic, version, SharedConstants.getGameVersion().getWorldVersion());
+        DataResult<GeneratorOptions> string = GeneratorOptions.CODEC.parse(dynamic2);
         return Pair.of((GeneratorOptions)string.resultOrPartial(Util.addPrefix("WorldGenSettings: ", LOGGER::error)).orElseGet(() -> {
-            DynamicRegistryManager dynamicRegistryManager = DynamicRegistryManager.Impl.method_39199(levelData);
+            DynamicRegistryManager dynamicRegistryManager = DynamicRegistryManager.createDynamicRegistryManager(dynamic2);
             return GeneratorOptions.getDefaultOptions(dynamicRegistryManager);
         }), string.lifecycle());
     }
 
     private static DataPackSettings method_29580(Dynamic<?> dynamic) {
-        DataResult var10000 = DataPackSettings.CODEC.parse(dynamic);
-        Logger var10001 = LOGGER;
-        var10001.getClass();
-        return (DataPackSettings)var10000.resultOrPartial(var10001::error).orElse(DataPackSettings.SAFE_MODE);
+        DataResult<DataPackSettings> var10000 = DataPackSettings.CODEC.parse(dynamic);
+        return var10000.resultOrPartial((String s) -> {
+            LOGGER.error(s);
+        }).orElse(DataPackSettings.SAFE_MODE);
     }
 }

@@ -22,6 +22,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GeneratorOptions;
+import net.minecraft.world.gen.WorldPresets;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.level.LevelInfo;
 import net.minecraft.world.level.storage.LevelStorage;
@@ -51,32 +52,32 @@ public abstract class MixinLevelStorageClient {
      * @reason Avoid datafixing and return the provided dynamic
      * @author SuperCoder79
      */
-    @Environment(EnvType.CLIENT)
-    @Overwrite
-    public BiFunction<File, DataFixer, LevelSummary> createLevelDataParser(File file, boolean bl) {
-        return (file2, dataFixer) -> {
-            try {
-                NbtCompound compoundTag = NbtIo.readCompressed(new FileInputStream(file2));
-                NbtCompound compoundTag2 = compoundTag.getCompound("Data");
-                compoundTag2.remove("Player");
-                int i = compoundTag2.contains("DataVersion", 99) ? compoundTag2.getInt("DataVersion") : -1;
-                Dynamic<NbtElement> dynamic = new Dynamic<>(NbtOps.INSTANCE, compoundTag2);
-                SaveVersionInfo saveVersionInfo = SaveVersionInfo.fromDynamic(dynamic);
-                int j = saveVersionInfo.getLevelFormatVersion();
-                if (j != 19132 && j != 19133) {
-                    return null;
-                } else {
-                    boolean bl2 = j != this.getCurrentVersion();
-                    File file3 = new File(file, "icon.png");
-                    DataPackSettings dataPackSettings = dynamic.get("DataPacks").result().map(d -> method_29580(d)).orElse(DataPackSettings.SAFE_MODE);
-                    LevelInfo levelInfo = LevelInfo.fromDynamic(dynamic, dataPackSettings);
-                    return new LevelSummary(levelInfo, saveVersionInfo, file.getName(), bl2, bl, file3);
-                }
-            } catch (Exception var15) {
-                return null;
-            }
-        };
-    }
+//    @Environment(EnvType.CLIENT)
+//    @Overwrite
+//    public BiFunction<File, DataFixer, LevelSummary> createLevelDataParser(File file, boolean bl) {
+//        return (file2, dataFixer) -> {
+//            try {
+//                NbtCompound compoundTag = NbtIo.readCompressed(new FileInputStream(file2));
+//                NbtCompound compoundTag2 = compoundTag.getCompound("Data");
+//                compoundTag2.remove("Player");
+//                int i = compoundTag2.contains("DataVersion", 99) ? compoundTag2.getInt("DataVersion") : -1;
+//                Dynamic<NbtElement> dynamic = new Dynamic<>(NbtOps.INSTANCE, compoundTag2);
+//                SaveVersionInfo saveVersionInfo = SaveVersionInfo.fromDynamic(dynamic);
+//                int j = saveVersionInfo.getLevelFormatVersion();
+//                if (j != 19132 && j != 19133) {
+//                    return null;
+//                } else {
+//                    boolean bl2 = j != this.getCurrentVersion();
+//                    File file3 = new File(file, "icon.png");
+//                    DataPackSettings dataPackSettings = dynamic.get("DataPacks").result().map(d -> method_29580(d)).orElse(DataPackSettings.SAFE_MODE);
+//                    LevelInfo levelInfo = LevelInfo.fromDynamic(dynamic, dataPackSettings);
+//                    return new LevelSummary(levelInfo, saveVersionInfo, file.getName(), bl2, bl, file3);
+//                }
+//            } catch (Exception var15) {
+//                return null;
+//            }
+//        };
+//    }
 
     /**
      * @reason Avoid datafixing and return the provided dynamic
@@ -99,7 +100,7 @@ public abstract class MixinLevelStorageClient {
         DataResult<GeneratorOptions> string = GeneratorOptions.CODEC.parse(dynamic2);
         return Pair.of((GeneratorOptions)string.resultOrPartial(Util.addPrefix("WorldGenSettings: ", LOGGER::error)).orElseGet(() -> {
             DynamicRegistryManager dynamicRegistryManager = DynamicRegistryManager.createDynamicRegistryManager(dynamic2);
-            return GeneratorOptions.getDefaultOptions(dynamicRegistryManager);
+            return WorldPresets.createDefaultOptions(dynamicRegistryManager);
         }), string.lifecycle());
     }
 

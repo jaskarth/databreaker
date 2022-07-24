@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(LevelStorage.class)
 public class MixinLevelStorage {
-    @Redirect(method = "readDataPackSettings(Ljava/io/File;Lcom/mojang/datafixers/DataFixer;)Lnet/minecraft/resource/DataPackSettings;", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DataFixer;update(Lcom/mojang/datafixers/DSL$TypeReference;Lcom/mojang/serialization/Dynamic;II)Lcom/mojang/serialization/Dynamic;"))
-    private static Dynamic<?> avoidDataFixing_method_29583(DataFixer dataFixer, DSL.TypeReference type, Dynamic<?> input, int version, int newVersion) {
-        return input;
-    }
+//    @Redirect(method = "readDataPackSettings(Ljava/io/File;Lcom/mojang/datafixers/DataFixer;)Lnet/minecraft/resource/DataPackSettings;", at = @At(value = "INVOKE", target = "Lcom/mojang/datafixers/DataFixer;update(Lcom/mojang/datafixers/DSL$TypeReference;Lcom/mojang/serialization/Dynamic;II)Lcom/mojang/serialization/Dynamic;"))
+//    private static Dynamic<?> avoidDataFixing_method_29583(DataFixer dataFixer, DSL.TypeReference type, Dynamic<?> input, int version, int newVersion) {
+//        return input;
+//    }
 }
